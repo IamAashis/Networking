@@ -2,7 +2,10 @@ package com.aashis.networking
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.aashis.networking.Adapter.VehicleAdapter
 import com.aashis.networking.model.Datum
 import com.aashis.networking.network.RetrofitHelper
 import com.aashis.networking.utils.NetworkUtils
@@ -14,7 +17,10 @@ import com.aashis.networking.model.VehicleData
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var datumList: ArrayList<Datum>
+
+//    private lateinit var adapter: VehicleAdapter
+    private lateinit var datumList: List<Datum>
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +39,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getVechicleInfo() {
-
         RetrofitHelper.getApiService()
             .getVehicleData()
             .enqueue(object :
@@ -42,36 +47,33 @@ class MainActivity : AppCompatActivity() {
 //                    hideProgressBar()
                     if (response.isSuccessful && response.code() == 200) {
 //                        val vehicleResponse = response.body()
-//                        datumList = response.body()?.data!!
+                        datumList = response.body()?.data!!
+//                        adapter.setData(datumList)
+
+//                        adapter = VehicleAdapter(){}
+//                        recycleview?.adapter = adapter
+//                        recycleview?.layoutManager = LinearLayoutManager(this@MainActivity)
 
 
-//                        val stringBuilder = "Country: " +
-//                                vehicleResponse?.data?. +
-//                                "\n" +
-//                                "Temperature: " +
-//                                vehicleResponse?.main?.temp +
-//                                "\n" +
-//                                "Temperature(Min): " +
-//                                vehicleResponse?.main?.tempMin +
-//                                "\n" +
-//                                "Temperature(Max): " +
-//                                vehicleResponse?.main?.tempMax +
-//                                "\n" +
-//                                "Humidity: " +
-//                                vehicleResponse?.main?.humidity +
-//                                "\n" +
-//                                "Pressure: " +
-//                                vehicleResponse?.main?.pressure
+                        recycleview.layoutManager = LinearLayoutManager(this@MainActivity,LinearLayoutManager.VERTICAL,false)
 
-//                        txvVehicleData?.text = stringBuilder
+                        recycleview.adapter = VehicleAdapter(datumList)
 
-                        Toast.makeText(applicationContext,"this is toast message",Toast.LENGTH_SHORT).show()
+
+
+                        Log.i("datumList", datumList.toString())
+
+
+                        Toast.makeText(
+                            applicationContext,
+                            "this is toast message",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
 
                 override fun onFailure(call: Call<VehicleData>, t: Throwable) {
 //                    hideProgressBar()
-                    txvVehicleData?.text = t.message
                 }
             })
 
