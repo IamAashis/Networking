@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">Networking</string>
     <string name="text_no_internet">You are offline please check your internet connection.</string>
+    <string name="textUserEmpty">Please fill User Name.</string>
+    <string name="textPasswordEmpty">Please fill Password.</string>
+    <string name="textLoading">Loading</string>
 
 </resources>

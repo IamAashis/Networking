@@ -6,4 +6,9 @@ object ApiConstants {
 
     const val endPoint = "vehicleList"
 
+
+    const val loginUrl="login"
+    const val contentTypeJson = "application/json"
+
+
 }
